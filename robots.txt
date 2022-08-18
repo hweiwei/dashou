@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://hweiwei.github.io/dashou/sitemap.xml
