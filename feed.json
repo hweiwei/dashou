@@ -6,7 +6,7 @@
     "feed_url": "https://hweiwei.github.io/dashou/feed.json",
     "user_comment": "",
     "author": {
-        "name": "huangww"
+        "name": "黄伟伟"
     },
     "items": [
         {
@@ -16,7 +16,7 @@
             "summary": "cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator; @ccclass @executeInEditMode @requireComponent(cc.Widget) @executionOrder(1000) @menu(&quot;tools/SafeArea&quot;) export default class SafeArea extends cc.Component { @property({ tooltip: &quot;异形屏适配&quot;, displayName: &quot;适配左边&quot;, }) left: boolean = true; @property({ tooltip: &quot;异形屏适配&quot;, displayName: &quot;适配右边&quot;, }) right: boolean&hellip;",
             "content_html": "<h3 id=\"cocos-creator-提供了safearea-组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：\">cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：</h3>\n<pre><code>\nconst { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator;\n@ccclass\n@executeInEditMode\n@requireComponent(cc.Widget)\n@executionOrder(1000)\n@menu(&quot;tools/SafeArea&quot;)\nexport default class SafeArea extends cc.Component {\n    @property({\n        tooltip: &quot;异形屏适配&quot;,\n        displayName: &quot;适配左边&quot;,\n    })\n    left: boolean = true;\n\n    @property({\n        tooltip: &quot;异形屏适配&quot;,\n        displayName: &quot;适配右边&quot;,\n    })\n    right: boolean = false;\n\n    onLoad() {\n        let widget = this.node.getComponent(cc.Widget);\n        if (!widget) {\n            return;\n        }\n        widget.updateAlignment();\n\n        let safeArea = cc.sys.getSafeAreaRect();\n        let viewsize = cc.winSize;\n        let widthOffset = viewsize.width - safeArea.width;\n\n        if (this.left &amp;&amp; widget.isAlignLeft) {\n            widget.left += safeArea.x;\n        }\n\n        if (this.right &amp;&amp; widget.isAlignRight) {\n            widget.right += widthOffset - safeArea.x;\n        }\n\n        widget.updateAlignment();\n    }\n\n    protected onEnable(): void {}\n}\n</code></pre>\n",
             "author": {
-                "name": "huangww"
+                "name": "黄伟伟"
             },
             "tags": [
             ],
