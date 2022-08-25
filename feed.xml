@@ -3,12 +3,41 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2022-08-25T17:35:56+08:00</updated>
+    <updated>2022-08-25T19:49:54+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>cocos热更动态版本地址研究</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu.html"/>
+        <id>https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu.html</id>
+
+        <updated>2022-08-25T19:49:54+08:00</updated>
+            <summary>
+                <![CDATA[
+                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 let asset = JSON.parse(data._nativeAsset);
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>
+<p> </p>
+<ol>
+<li>获取本地热更文件project.manifest 获得内容data 并解析 </li>
+</ol>
+<p><code><span class="code-snippet__keyword">let</span> asset =</code> <span class="code-snippet__built_in">JSON</span>.parse(data._nativeAsset);</p>
+<ol>
+<li> </li>
+</ol>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>ios 覆盖安装问题研究</title>
         <author>
@@ -17,9 +46,17 @@
         <link href="https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html"/>
         <id>https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html</id>
 
-        <updated>2022-08-25T17:35:56+08:00</updated>
-            <summary></summary>
-        <content></content>
+        <updated>2022-08-25T17:45:44+08:00</updated>
+            <summary>
+                <![CDATA[
+                    在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。</p>
+            ]]>
+        </content>
     </entry>
     <entry>
         <title>异形屏适配组件</title>
