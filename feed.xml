@@ -3,12 +3,24 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2022-08-18T09:16:38+08:00</updated>
+    <updated>2022-08-25T17:35:56+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>ios 覆盖安装问题研究</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html"/>
+        <id>https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html</id>
+
+        <updated>2022-08-25T17:35:56+08:00</updated>
+            <summary></summary>
+        <content></content>
+    </entry>
     <entry>
         <title>异形屏适配组件</title>
         <author>
