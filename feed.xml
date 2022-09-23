@@ -3,7 +3,7 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2022-09-23T10:45:49+08:00</updated>
+    <updated>2022-09-23T10:49:36+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -17,7 +17,7 @@
         <link href="https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"/>
         <id>https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html</id>
 
-        <updated>2022-09-23T10:45:49+08:00</updated>
+        <updated>2022-09-23T10:49:36+08:00</updated>
             <summary>
                 <![CDATA[
                     由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;
@@ -27,8 +27,6 @@
             <![CDATA[
                 <p>由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported</p>
 <pre><code>
-
-
 bool jitSupported() {
             #if CC_IOS_FORCE_DISABLE_JIT
             return false;
@@ -82,7 +80,6 @@ bool jitSupported() {
             #endif //TARGET_CPU_X86 || TARGET_CPU_X86_64
         }
                 
-        ```
 </code></pre>
 
             ]]>
