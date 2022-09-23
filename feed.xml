@@ -3,12 +3,91 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2022-08-25T19:49:54+08:00</updated>
+    <updated>2022-09-23T10:45:49+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>解决2.4.x ios 真机闪退问题</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"/>
+        <id>https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html</id>
+
+        <updated>2022-09-23T10:45:49+08:00</updated>
+            <summary>
+                <![CDATA[
+                    由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported</p>
+<pre><code>
+
+
+bool jitSupported() {
+            #if CC_IOS_FORCE_DISABLE_JIT
+            return false;
+            #elif TARGET_CPU_X86 || TARGET_CPU_X86_64
+            return true;
+            #else
+            
+            //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题
+//            // Check for arm64e.
+//            cpu_type_t cpuType = 0;
+//            size_t cpuTypeSize = sizeof(cpu_type_t);
+//            if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get CPU type: %s&quot;, strerror(errno));
+//            }
+//
+//            cpu_subtype_t cpuSubType = 0;
+//            if (::sysctlbyname(&quot;hw.cpusubtype&quot;, &amp;cpuSubType, &amp;cpuTypeSize, nullptr, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get CPU subtype: %s&quot;, strerror(errno));
+//            }
+//
+//            // Tracing is necessary unless the device is arm64e (A12 chip or higher).
+//            if (cpuType != CPU_TYPE_ARM64 || cpuSubType != CPU_SUBTYPE_ARM64E) {
+//                return false;
+//            }
+//
+//            // Check for iOS 14.2 and higher.
+//            size_t osVersionSize;
+//            ::sysctlbyname(&quot;kern.osversion&quot;, NULL, &amp;osVersionSize, NULL, 0);
+//            char osversionBuffer[osVersionSize];
+//
+//            if (::sysctlbyname(&quot;kern.osversion&quot;, osversionBuffer, &amp;osVersionSize, NULL, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get current OS version: %s&quot;, strerror(errno));
+//                return false;
+//            }
+//
+//            int majorVersion = 0;
+//            char minorLetter = &#39;Z&#39;;
+//
+//            for (size_t index = 0; index &lt; osVersionSize; index++) {
+//                char version_char = osversionBuffer[index];
+//                // Find the minor version build letter.
+//                if (isalpha(version_char)) {
+//                    majorVersion = atoi((const char*)osversionBuffer);
+//                    minorLetter = toupper(version_char);
+//                    break;
+//                }
+//            }
+//            // 18B92 is iOS 14.2 beta release candidate where tracing became unnecessary.
+//            return majorVersion &gt; 18 || (majorVersion == 18 &amp;&amp; minorLetter &gt;= &#39;B&#39;);
+            return false;
+            #endif //TARGET_CPU_X86 || TARGET_CPU_X86_64
+        }
+                
+        ```
+</code></pre>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>cocos热更动态版本地址研究</title>
         <author>

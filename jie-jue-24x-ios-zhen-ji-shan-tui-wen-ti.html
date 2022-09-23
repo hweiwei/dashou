@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>解决2.4.x ios 真机闪退问题 - 大手游戏</title><meta name="description" content="由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="canonical" href="https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"><link rel="alternate" type="application/atom+xml" href="https://hweiwei.github.io/dashou/feed.xml"><link rel="alternate" type="application/json" href="https://hweiwei.github.io/dashou/feed.json"><meta property="og:title" content="解决2.4.x ios 真机闪退问题"><meta property="og:site_name" content="大手游戏"><meta property="og:description" content="由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;"><meta property="og:url" content="https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"><meta property="og:type" content="article"><link rel="stylesheet" href="https://hweiwei.github.io/dashou/assets/css/style.css?v=4128e7e1a641a287245dedc222b18c79"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"},"headline":"解决2.4.x ios 真机闪退问题","datePublished":"2022-09-23T10:43","dateModified":"2022-09-23T10:45","description":"由于 jit 不支持ios ，引擎错误开启支持导致。修改 \\cocos2d-x\\cocos\\scripting\\js-bindings\\jswrapper\\v8\\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;","author":{"@type":"Person","name":"黄伟伟","url":"https://hweiwei.github.io/dashou/authors/huangww/"},"publisher":{"@type":"Organization","name":"黄伟伟"}}</script></head><body><div class="site-container"><header class="top" id="js-header"><a class="logo" href="https://hweiwei.github.io/dashou/">大手游戏</a></header><main><article class="post"><div class="hero"><header class="hero__content"><div class="wrapper"><div class="post__meta"><time datetime="2022-09-23T10:43">September 23, 2022</time></div><h1>解决2.4.x ios 真机闪退问题</h1><div class="post__meta post__meta--author"><a href="https://hweiwei.github.io/dashou/authors/huangww/" class="feed__author">黄伟伟</a></div></div></header></div><div class="wrapper post__entry"><p>由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported</p><pre><code>
+
+
+bool jitSupported() {
+            #if CC_IOS_FORCE_DISABLE_JIT
+            return false;
+            #elif TARGET_CPU_X86 || TARGET_CPU_X86_64
+            return true;
+            #else
+            
+            //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题
+//            // Check for arm64e.
+//            cpu_type_t cpuType = 0;
+//            size_t cpuTypeSize = sizeof(cpu_type_t);
+//            if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get CPU type: %s&quot;, strerror(errno));
+//            }
+//
+//            cpu_subtype_t cpuSubType = 0;
+//            if (::sysctlbyname(&quot;hw.cpusubtype&quot;, &amp;cpuSubType, &amp;cpuTypeSize, nullptr, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get CPU subtype: %s&quot;, strerror(errno));
+//            }
+//
+//            // Tracing is necessary unless the device is arm64e (A12 chip or higher).
+//            if (cpuType != CPU_TYPE_ARM64 || cpuSubType != CPU_SUBTYPE_ARM64E) {
+//                return false;
+//            }
+//
+//            // Check for iOS 14.2 and higher.
+//            size_t osVersionSize;
+//            ::sysctlbyname(&quot;kern.osversion&quot;, NULL, &amp;osVersionSize, NULL, 0);
+//            char osversionBuffer[osVersionSize];
+//
+//            if (::sysctlbyname(&quot;kern.osversion&quot;, osversionBuffer, &amp;osVersionSize, NULL, 0) &lt; 0) {
+//                SE_LOGD(&quot;Could not execute sysctl() to get current OS version: %s&quot;, strerror(errno));
+//                return false;
+//            }
+//
+//            int majorVersion = 0;
+//            char minorLetter = &#39;Z&#39;;
+//
+//            for (size_t index = 0; index &lt; osVersionSize; index++) {
+//                char version_char = osversionBuffer[index];
+//                // Find the minor version build letter.
+//                if (isalpha(version_char)) {
+//                    majorVersion = atoi((const char*)osversionBuffer);
+//                    minorLetter = toupper(version_char);
+//                    break;
+//                }
+//            }
+//            // 18B92 is iOS 14.2 beta release candidate where tracing became unnecessary.
+//            return majorVersion &gt; 18 || (majorVersion == 18 &amp;&amp; minorLetter &gt;= &#39;B&#39;);
+            return false;
+            #endif //TARGET_CPU_X86 || TARGET_CPU_X86_64
+        }
+                
+        ```
+</code></pre></div><footer class="wrapper post__footer"><p class="post__last-updated">This article was updated on September 23, 2022</p><div class="post__share"></div><div class="post__bio bio"><div class="bio__info"><h3 class="bio__name"><a href="https://hweiwei.github.io/dashou/authors/huangww/" rel="author">黄伟伟</a></h3></div></div></footer></article><nav class="post__nav"><div class="post__nav-inner"><div class="post__nav-prev"><svg width="1.041em" height="0.416em" aria-hidden="true"><use xlink:href="https://hweiwei.github.io/dashou/assets/svg/svg-map.svg#arrow-prev"/></svg> <a href="https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu.html" class="post__nav-link" rel="prev"><span>Previous</span> cocos热更动态版本地址研究</a></div></div></nav></main><footer class="footer"><div class="footer__copyright">Powered by Publii</div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://hweiwei.github.io/dashou/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script defer="defer" src="https://hweiwei.github.io/dashou/assets/js/scripts.min.js?v=f47c11534595205f20935f0db2a62a85"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
+
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+                images[i].classList.add('is-loaded');
+            } else {
+                images[i].addEventListener('load', function () {
+                    this.classList.add('is-loaded');
+                }, false);
+            }
+        }</script></body></html>
