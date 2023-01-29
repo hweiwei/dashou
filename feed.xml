@@ -3,12 +3,31 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2022-09-23T10:49:36+08:00</updated>
+    <updated>2022-10-08T15:20:39+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>shader 之闪电特效</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html"/>
+        <id>https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html</id>
+
+        <updated>2022-10-08T15:20:39+08:00</updated>
+            <summary></summary>
+        <content type="html">
+            <![CDATA[
+                
+  <p>
+    
+  </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>解决2.4.x ios 真机闪退问题</title>
         <author>

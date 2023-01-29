@@ -10,6 +10,19 @@
     },
     "items": [
         {
+            "id": "https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html",
+            "url": "https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html",
+            "title": "shader 之闪电特效",
+            "content_html": "\n  <p>\n    \n  </p>",
+            "author": {
+                "name": "黄伟伟"
+            },
+            "tags": [
+            ],
+            "date_published": "2022-10-08T15:20:39+08:00",
+            "date_modified": "2022-10-08T15:20:39+08:00"
+        },
+        {
             "id": "https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html",
             "url": "https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html",
             "title": "解决2.4.x ios 真机闪退问题",
