@@ -3,7 +3,7 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-08-01T10:07:36+08:00</updated>
+    <updated>2023-08-01T11:52:09+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -17,18 +17,19 @@
         <link href="https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html"/>
         <id>https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html</id>
 
-        <updated>2023-08-01T09:54:37+08:00</updated>
+        <updated>2023-08-01T11:52:09+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 asset.packageUrl = this.serverUrl + HOT_PACKAGE + version; asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE +&hellip;
+                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 let asset = JSON.parse(data._nativeAsset); 修改asset 内容 ``` asset.packageUrl = this.serverUrl + HOT_PACKAGE +&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
                 <p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>
 <ol>
-<li>获取本地热更文件project.manifest 获得内容data 并解析 
-<code>let asset = JSON.parse(data._nativeAsset); </code></li>
+<li>获取本地热更文件project.manifest 获得内容data 并解析 <pre><code>let asset = JSON.parse(data._nativeAsset);  
+</code></pre>
+</li>
 <li>修改asset 内容 
 ```</li>
 </ol>
