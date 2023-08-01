@@ -20,7 +20,7 @@
         <updated>2023-08-01T09:54:37+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 asset.packageUrl = this.serverUrl + HOT_PACKAGE + version; asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/project.manifest”; asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/version.manifest”; 3. 判定是否存在存储的热更文件 jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)，如果存在更新该文件 ```if (jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;))&hellip;
+                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 asset.packageUrl = this.serverUrl + HOT_PACKAGE + version; asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE +&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -116,7 +116,7 @@ if (cachedManifest)
         <updated>2022-09-23T10:49:36+08:00</updated>
             <summary>
                 <![CDATA[
-                    由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else //2022.7.1 暂时移除其他版本jit支持，解决真机闪退问题 // // Check for arm64e. // cpu_type_t cpuType = 0; // size_t cpuTypeSize = sizeof(cpu_type_t); // if (::sysctlbyname(&quot;hw.cputype&quot;, &amp;cpuType, &amp;cpuTypeSize, nullptr, 0) &lt;&hellip;
+                    由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -249,7 +249,7 @@ bool jitSupported() {
         <updated>2022-08-18T09:16:38+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator; @ccclass @executeInEditMode @requireComponent(cc.Widget) @executionOrder(1000) @menu(&quot;tools/SafeArea&quot;) export default class SafeArea extends cc.Component { @property({ tooltip: &quot;异形屏适配&quot;, displayName: &quot;适配左边&quot;, }) left: boolean = true; @property({ tooltip: &quot;异形屏适配&quot;, displayName: &quot;适配右边&quot;, }) right: boolean&hellip;
+                    cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator; @ccclass @executeInEditMode @requireComponent(cc.Widget) @executionOrder(1000) @menu(&quot;tools/SafeArea&quot;)&hellip;
                 ]]>
             </summary>
         <content type="html">
