@@ -3,7 +3,7 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-08-01T11:52:09+08:00</updated>
+    <updated>2023-08-01T13:33:46+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -17,30 +17,31 @@
         <link href="https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html"/>
         <id>https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html</id>
 
-        <updated>2023-08-01T11:52:09+08:00</updated>
+        <updated>2023-08-01T13:33:46+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 let asset = JSON.parse(data._nativeAsset); 修改asset 内容 ``` asset.packageUrl = this.serverUrl + HOT_PACKAGE +&hellip;
+                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 获取本地热更文件project.manifest 获得内容data 并解析 let asset = JSON.parse(data._nativeAsset); 修改asset 内容 asset.packageUrl = this.serverUrl +&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
                 <p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>
 <ol>
-<li>获取本地热更文件project.manifest 获得内容data 并解析 <pre><code>let asset = JSON.parse(data._nativeAsset);  
+<li><p>获取本地热更文件project.manifest 获得内容data 并解析 </p>
+<pre><code>let asset = JSON.parse(data._nativeAsset);  
 </code></pre>
 </li>
-<li>修改asset 内容 
-```</li>
+<li><p>修改asset 内容</p>
+</li>
 </ol>
-<p>asset.packageUrl = this.serverUrl + HOT_PACKAGE + version;
-asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/project.manifest”;
-asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/version.manifest”;</p>
-<pre><code>
-3. 判定是否存在存储的热更文件 jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)，如果存在更新该文件 
-
-```if (jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)) {
-    let str = jsb.fileUtils.getStringFromFile(this.storagePath + &quot;/project.manifest&quot;);
+<pre><code>asset.packageUrl = this.serverUrl + HOT_PACKAGE + version;
+asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + &quot;/project.manifest&quot;;
+asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + &quot;/version.manifest&quot;;
+</code></pre>
+<ol start="3">
+<li>判定是否存在存储的热更文件 jsb.fileUtils.isFileExist(this.storagePath + “/project.manifest”)，如果存在更新该文件</li>
+</ol>
+<pre><code class="language-if">    let str = jsb.fileUtils.getStringFromFile(this.storagePath + &quot;/project.manifest&quot;);
     let json = JSON.parse(str);
     json.packageUrl = asset.packageUrl;
     json.remoteManifestUrl = asset.remoteManifestUrl;
@@ -49,8 +50,7 @@ asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “
 }
 </code></pre>
 <p>这一步的目的是因为源码中，会优先使用存贮的热更文件</p>
-<pre><code>
-// Compare with cached manifest to determine which one to use
+<pre><code>// Compare with cached manifest to determine which one to use
 if (cachedManifest)
 {
     bool localNewer = _localManifest-&gt;versionGreater(cachedManifest, _versionCompareHandle);
@@ -69,19 +69,15 @@ if (cachedManifest)
 }
 </code></pre>
 <ol start="4">
-<li>构造新的manifest 对象
-```</li>
+<li>构造新的manifest 对象</li>
 </ol>
-<p>let mani = new jsb.Manifest(JSON.stringify(asset), this.storagePath);</p>
-<pre><code>
-5.热更管理器加载该配置对象即可。
+<pre><code>let mani = new jsb.Manifest(JSON.stringify(asset), this.storagePath);
 </code></pre>
-<p>this._assetManager.loadLocalManifest(mani, this.storagePath);</p>
-<pre><code>
-***注意***：在构造热更管理器时不要传入原始的manifest 文件，否则loadLocalManifest方法将失效
+<p>5.热更管理器加载该配置对象即可。</p>
+<pre><code>this._assetManager.loadLocalManifest(mani, this.storagePath);
 </code></pre>
-<p>this._assetManager = new jsb.AssetsManager(“”, this.storagePath, this.versionCompareHandle);</p>
-<pre><code>
+<p><em><strong>注意</strong></em>：在构造热更管理器时不要传入原始的manifest 文件，否则loadLocalManifest方法将失效</p>
+<pre><code>this._assetManager = new jsb.AssetsManager(&quot;&quot;, this.storagePath, this.versionCompareHandle);
 </code></pre>
 
             ]]>
