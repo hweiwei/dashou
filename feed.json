@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html",
+            "url": "https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html",
+            "title": "cocos热更动态版本地址研究",
+            "summary": "cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 asset.packageUrl = this.serverUrl + HOT_PACKAGE + version; asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/project.manifest”; asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/version.manifest”; 3. 判定是否存在存储的热更文件 jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)，如果存在更新该文件 ```if (jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;))&hellip;",
+            "content_html": "<p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>\n<ol>\n<li>获取本地热更文件project.manifest 获得内容data 并解析 \n<code>let asset = JSON.parse(data._nativeAsset); </code></li>\n<li>修改asset 内容 \n```</li>\n</ol>\n<p>asset.packageUrl = this.serverUrl + HOT_PACKAGE + version;\nasset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/project.manifest”;\nasset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + “/version.manifest”;</p>\n<pre><code>\n3. 判定是否存在存储的热更文件 jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)，如果存在更新该文件 \n\n```if (jsb.fileUtils.isFileExist(this.storagePath + &quot;/project.manifest&quot;)) {\n    let str = jsb.fileUtils.getStringFromFile(this.storagePath + &quot;/project.manifest&quot;);\n    let json = JSON.parse(str);\n    json.packageUrl = asset.packageUrl;\n    json.remoteManifestUrl = asset.remoteManifestUrl;\n    json.remoteVersionUrl = asset.remoteVersionUrl;\n    jsb.fileUtils.writeStringToFile(JSON.stringify(json), this.storagePath + &quot;/project.manifest&quot;);\n}\n</code></pre>\n<p>这一步的目的是因为源码中，会优先使用存贮的热更文件</p>\n<pre><code>\n// Compare with cached manifest to determine which one to use\nif (cachedManifest)\n{\n    bool localNewer = _localManifest-&gt;versionGreater(cachedManifest, _versionCompareHandle);\n    if (localNewer)\n    {\n        // Recreate storage, to empty the content\n        _fileUtils-&gt;removeDirectory(_storagePath);\n        _fileUtils-&gt;createDirectory(_storagePath);\n        CC_SAFE_RELEASE(cachedManifest);\n    }\n    else\n    {\n        CC_SAFE_RELEASE(_localManifest);\n        _localManifest = cachedManifest;\n    }\n}\n</code></pre>\n<ol start=\"4\">\n<li>构造新的manifest 对象\n```</li>\n</ol>\n<p>let mani = new jsb.Manifest(JSON.stringify(asset), this.storagePath);</p>\n<pre><code>\n5.热更管理器加载该配置对象即可。\n</code></pre>\n<p>this._assetManager.loadLocalManifest(mani, this.storagePath);</p>\n<pre><code>\n***注意***：在构造热更管理器时不要传入原始的manifest 文件，否则loadLocalManifest方法将失效\n</code></pre>\n<p>this._assetManager = new jsb.AssetsManager(“”, this.storagePath, this.versionCompareHandle);</p>\n<pre><code>\n</code></pre>\n",
+            "author": {
+                "name": "黄伟伟"
+            },
+            "tags": [
+            ],
+            "date_published": "2023-08-01T09:48:32+08:00",
+            "date_modified": "2023-08-01T09:54:37+08:00"
+        },
+        {
             "id": "https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html",
             "url": "https://hweiwei.github.io/dashou/shader-zhi-shan-dian-te-xiao.html",
             "title": "shader 之闪电特效",
@@ -37,32 +51,18 @@
             "date_modified": "2022-09-23T10:49:36+08:00"
         },
         {
-            "id": "https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu.html",
-            "url": "https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu.html",
-            "title": "cocos热更动态版本地址研究",
-            "summary": "cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 let asset = JSON.parse(data._nativeAsset);",
-            "content_html": "<p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>\n<p> </p>\n<ol>\n<li>获取本地热更文件project.manifest 获得内容data 并解析 </li>\n</ol>\n<p><code><span class=\"code-snippet__keyword\">let</span> asset =</code> <span class=\"code-snippet__built_in\">JSON</span>.parse(data._nativeAsset);</p>\n<ol>\n<li> </li>\n</ol>\n<p> </p>",
-            "author": {
-                "name": "黄伟伟"
-            },
-            "tags": [
-            ],
-            "date_published": "2022-08-25T17:47:34+08:00",
-            "date_modified": "2022-08-25T19:49:54+08:00"
-        },
-        {
             "id": "https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html",
             "url": "https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html",
             "title": "ios 覆盖安装问题研究",
-            "summary": "在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。",
-            "content_html": "<p>在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。</p>",
+            "summary": "在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。 经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去",
+            "content_html": "<p>在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。</p>\n<p>经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即<span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);\">WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去</span></p>\n<p><code></code></p>\n<div>\n<div>let writablepath = jsb.fileUtils.getWritablePath();</div>\n<div>    var hotUpdateSearchPaths = localStorage.getItem(\"HotUpdateSearchPaths\");</div>\n<br>\n<div>    if (hotUpdateSearchPaths &amp;&amp; hotUpdateSearchPaths.indexOf(writablepath) != -1) {</div>\n<div>        var paths = JSON.parse(hotUpdateSearchPaths);</div>\n<div>        jsb.fileUtils.setSearchPaths(paths);</div>\n<div>        var fileList = [];</div>\n<div>        var storagePath = paths[0] || \"\";</div>\n<div>        var tempPath = storagePath + \"_temp/\";</div>\n<div>        var baseOffset = tempPath.length;</div>\n<br>\n<div>        if (jsb.fileUtils.isDirectoryExist(tempPath) &amp;&amp; !jsb.fileUtils.isFileExist(tempPath + \"project.manifest.temp\")) {</div>\n<div>            jsb.fileUtils.listFilesRecursively(tempPath, fileList);</div>\n<div>            fileList.forEach((srcPath) =&gt; {</div>\n<div>                var relativePath = srcPath.substr(baseOffset);</div>\n<div>                var dstPath = storagePath + relativePath;</div>\n<br>\n<div>                if (srcPath[srcPath.length] == \"/\") {</div>\n<div>                    cc.fileUtils.createDirectory(dstPath);</div>\n<div>                } else {</div>\n<div>                    if (cc.fileUtils.isFileExist(dstPath)) {</div>\n<div>                        cc.fileUtils.removeFile(dstPath);</div>\n<div>                    }</div>\n<div>                    cc.fileUtils.renameFile(srcPath, dstPath);</div>\n<div>                }</div>\n<div>            });</div>\n<div>            cc.fileUtils.removeDirectory(tempPath);</div>\n<div>        }</div>\n<div>    } else {</div>\n<div>        let path = writablepath + \"remote-hot/hall\"; //热更存放路径添加</div>\n<div>        jsb.fileUtils.addSearchPath(path, true);</div>\n<div>    }</div>\n</div>\n<p><code></code></p>",
             "author": {
                 "name": "黄伟伟"
             },
             "tags": [
             ],
             "date_published": "2022-08-18T16:27:38+08:00",
-            "date_modified": "2022-08-25T17:45:44+08:00"
+            "date_modified": "2023-08-01T10:07:36+08:00"
         },
         {
             "id": "https://hweiwei.github.io/dashou/safearea-component.html",
