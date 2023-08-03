@@ -3,12 +3,151 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-08-01T15:10:11+08:00</updated>
+    <updated>2023-08-03T09:47:33+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>cocos-webview 添加关闭按钮-android篇</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/cocos-webview-tian-jia-guan-bi-an-niu-androidpian.html"/>
+        <id>https://hweiwei.github.io/dashou/cocos-webview-tian-jia-guan-bi-an-niu-androidpian.html</id>
+
+        <updated>2023-08-03T09:47:33+08:00</updated>
+            <summary>
+                <![CDATA[
+                    **前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 ** 观察cocos2dxWebViewHelper 发现，cocos 通过这个类来管理游戏内的webview，所以我们只需要控制好在创建，销毁 webview 的时候，将相关ui做同样的动作即可 这边先实现下关闭按钮的创建。 在 cocos2dxWebViewHelper中添加方法 public static void createSkipButton(int index) { skipImgBtn&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>**前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 **</p>
+<p>观察cocos2dxWebViewHelper 发现，cocos 通过这个类来管理游戏内的webview，所以我们只需要控制好在创建，销毁 webview 的时候，将相关ui做同样的动作即可</p>
+<p>这边先实现下关闭按钮的创建。
+在 cocos2dxWebViewHelper中添加方法</p>
+<pre><code>    public static void createSkipButton(int index) {
+
+        skipImgBtn = new ImageView(sCocos2dxActivity);
+//        skipImgBtn.setRotation(90);
+        //定义矩阵对象
+        Matrix matrix = new Matrix();
+        matrix.setRotate(90);
+        //缩放原图
+        // matrix.postScale(1.5f, 1.5f);
+        float w = 0;
+        float h = 0;
+
+        Bitmap bitmap;
+        Bitmap dstbmp;
+        bitmap = BitmapFactory.decodeResource(sCocos2dxActivity.getResources(), R.drawable.skip);
+        dstbmp = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(), bitmap.getHeight(),matrix,true);
+        skipImgBtn.setImageBitmap(dstbmp);
+        w = dstbmp.getWidth();
+        h = dstbmp.getHeight();
+        //获取屏幕尺寸几种方式
+        // 参考文档 http://blog.csdn.net/ithomer/article/details/6688883
+        DisplayMetrics dm = new DisplayMetrics();
+        sCocos2dxActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int)w, (int)h);
+
+        params.leftMargin = (int) (sCocos2dxActivity.getWindowManager().getDefaultDisplay().getWidth()-w-20);
+        params.topMargin = (int) (sCocos2dxActivity.getWindowManager().getDefaultDisplay().getHeight()-h);
+
+        Cocos2dxWebView view = webViews.get(index);
+        view.skipImgBtn = skipImgBtn;
+
+        btnIndex = index;
+
+        skipImgBtn.bringToFront();
+        sLayout.addView(skipImgBtn,params);
+
+        skipImgBtn.invalidate();
+        skipImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeWebView(btnIndex);
+            }
+        });
+
+    }
+        
+</code></pre>
+<p>来创建关闭按钮
+添加移除方法</p>
+<pre><code>public static void removeSkipBtn(){
+        if (skipImgBtn!= null){
+            sLayout.removeView(skipImgBtn);
+            skipImgBtn = null;
+        }
+    }
+</code></pre>
+<p>skipImgBtn   记得在类中声明</p>
+<pre><code>private static ImageView skipImgBtn = null;
+    private static int btnIndex = 0;
+</code></pre>
+<p>方法实现完之后，只需在createWebView 方法中 跟着创建即可</p>
+<pre><code> public static int createWebView() {
+        final int index = viewTag;
+        sCocos2dxActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Cocos2dxWebView webView = new Cocos2dxWebView(sCocos2dxActivity, index);
+                FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT);
+                sLayout.addView(webView, lParams);
+
+                webViews.put(index, webView);
+                createSkipButton(index);
+            }
+        });
+        return viewTag++;
+    }
+</code></pre>
+<p>在移除中跟着移除</p>
+<pre><code>public static void removeWebView(final int index) {
+        sCocos2dxActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Cocos2dxWebView webView = webViews.get(index);
+                if (webView != null) {
+                    webViews.remove(index);
+                    sLayout.removeView(webView);
+                    webView.destroy();
+                    webView = null;
+                }
+
+                removeSkipBtn();
+            }
+        });
+    }
+</code></pre>
+<p>别忘了在显隐控制中，跟着操作</p>
+<pre><code> public static void setVisible(final int index, final boolean visible) {
+        sCocos2dxActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Cocos2dxWebView webView = webViews.get(index);
+                if (webView != null) {
+                    webView.setVisibility(visible ? View.VISIBLE : View.GONE);
+                }
+                if (skipImgBtn!= null){
+                    skipImgBtn.setVisibility(visible ? View.VISIBLE : View.GONE);
+                }
+            }
+        });
+    }
+</code></pre>
+<p>这样子就实现了在cocos webview 上添加关闭按钮的功能。</p>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>动态规划-限定条件求最优解</title>
         <author>
