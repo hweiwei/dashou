@@ -20,7 +20,7 @@
         <updated>2023-08-03T09:47:33+08:00</updated>
             <summary>
                 <![CDATA[
-                    **前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 ** 观察cocos2dxWebViewHelper 发现，cocos 通过这个类来管理游戏内的webview，所以我们只需要控制好在创建，销毁 webview 的时候，将相关ui做同样的动作即可 这边先实现下关闭按钮的创建。 在 cocos2dxWebViewHelper中添加方法 public static void createSkipButton(int index) { skipImgBtn&hellip;
+                    **前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 **&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -159,7 +159,7 @@
         <updated>2023-08-03T09:53:28+08:00</updated>
             <summary>
                 <![CDATA[
-                    原文发布于微信公众号https://mp.weixin.qq.com/s?__biz=MzI4MDA3MTcyMA==&amp;mid=2247483680&amp;idx=1&amp;sn=49c0d6934538cac1fe79d0430459b8d1&amp;chksm=ebbf5a67dcc8d371ca1f64da1dc7b23637cbbf1fd58e521e2cd6f4d37b4dcc79277343c81375&amp;token=1598275063&amp;lang=zh_CN#rd 游戏中经常会用到一些buff道具，最常见的比如建造建筑时使用的时间缩短道具，行军加速道具包，血量回复包等。在几种道具中选择最合适的道具包达到目标效果。许多游戏中的解决方法是使用贪心算法，这种只是一般可行解，并不被玩家接受。用动态规划算法可以构造出最优解。 动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 我们先来构造一般意义上的最优解 假设当前我们在建造一个建筑，建筑需花费n小时的时间，玩家拥有3种道具a、b、c,分别能使建筑时间缩短1、2、3小时，我们来看看每个阶段的最优解情况 我们来解释下表格所表达的意思，一般的我们认为在所有道具都参与的情况下的解决方案为最优解，并且优先使用时效长的道具 当目标为缩短1小时的时候的最有解，结果为使用 1个道具a。同理，目标为2时使用一个b,目标为3时使用一个道具3。观察3中的第二列解 意思为当目标为缩短3个小时时，在拥有道具a和b情况下的最有解。 至此，大家应该明白表格所表达的意思了吧。 现在，我们对道具数量做出限定，假定在b、c只拥有一个的情况下，求6小时的最优解。我们继续构造最优解表格 表格理解应该是没有难度了，现在我们来分析下如何用代码实现。。。中间省略无数，直接贴代码。新建一个html打开在控制台查看结果即可。 &lt;html&gt; &lt;body&gt; &lt;script&gt; const MAX = 1000000 /**数组对象深拷贝*/&hellip;
+                    原文发布于微信公众号https://mp.weixin.qq.com/s?__biz=MzI4MDA3MTcyMA==&amp;mid=2247483680&amp;idx=1&amp;sn=49c0d6934538cac1fe79d0430459b8d1&amp;chksm=ebbf5a67dcc8d371ca1f64da1dc7b23637cbbf1fd58e521e2cd6f4d37b4dcc79277343c81375&amp;token=1598275063&amp;lang=zh_CN#rd 游戏中经常会用到一些buff道具，最常见的比如建造建筑时使用的时间缩短道具，行军加速道具包，血量回复包等。在几种道具中选择最合适的道具包达到目标效果。许多游戏中的解决方法是使用贪心算法，这种只是一般可行解，并不被玩家接受。用动态规划算法可以构造出最优解。 动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 我们先来构造一般意义上的最优解 假设当前我们在建造一个建筑，建筑需花费n小时的时间，玩家拥有3种道具a、b、c,分别能使建筑时间缩短1、2、3小时，我们来看看每个阶段的最优解情况&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -399,7 +399,7 @@
         <updated>2023-08-01T13:33:46+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。 获取本地热更文件project.manifest 获得内容data 并解析 let asset = JSON.parse(data._nativeAsset); 修改asset 内容 asset.packageUrl = this.serverUrl +&hellip;
+                    cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -492,7 +492,7 @@ if (cachedManifest)
         <updated>2022-09-23T10:49:36+08:00</updated>
             <summary>
                 <![CDATA[
-                    由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported bool jitSupported() { #if CC_IOS_FORCE_DISABLE_JIT return false; #elif TARGET_CPU_X86 || TARGET_CPU_X86_64 return true; #else&hellip;
+                    由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -625,7 +625,7 @@ bool jitSupported() {
         <updated>2022-08-18T09:16:38+08:00</updated>
             <summary>
                 <![CDATA[
-                    cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator; @ccclass @executeInEditMode @requireComponent(cc.Widget) @executionOrder(1000) @menu(&quot;tools/SafeArea&quot;)&hellip;
+                    cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const&hellip;
                 ]]>
             </summary>
         <content type="html">
