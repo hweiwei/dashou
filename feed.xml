@@ -3,12 +3,24 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-08-03T09:53:28+08:00</updated>
+    <updated>2023-09-15T16:59:51+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>贝塞尔曲线研究</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/bei-sai-er-qu-xian-yan-jiu.html"/>
+        <id>https://hweiwei.github.io/dashou/bei-sai-er-qu-xian-yan-jiu.html</id>
+
+        <updated>2023-09-15T16:59:51+08:00</updated>
+            <summary></summary>
+        <content></content>
+    </entry>
     <entry>
         <title>cocos-webview 添加关闭按钮-android篇</title>
         <author>
