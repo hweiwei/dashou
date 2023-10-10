@@ -3,7 +3,7 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-10-10T11:23:06+08:00</updated>
+    <updated>2023-10-10T11:27:58+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -17,7 +17,7 @@
         <link href="https://hweiwei.github.io/dashou/tsming-ming-kong-jian-he-bing.html"/>
         <id>https://hweiwei.github.io/dashou/tsming-ming-kong-jian-he-bing.html</id>
 
-        <updated>2023-10-10T11:23:06+08:00</updated>
+        <updated>2023-10-10T11:27:58+08:00</updated>
             <summary>
                 <![CDATA[
                     在用ts 开发游戏的时候,发现命名空间使用比较不友好，需要文件引入以及使用声明文件.d.ts才能做到很好的代码提示，但是在复杂类设计的情况下.d.ts书写起来也比较费劲，于是开始研究怎么才能做到用命名空间隔离作用域并且能够有很好的使用体验。当前主要实现方式是挂载在windows底下，并且将同命名空间下的对象合并，来达到效果，效果比较理想。上代码： //UIMgr.ts文件实现 /* *&hellip;
@@ -81,6 +81,11 @@ if (!window[&quot;core&quot;]) {
 } else {
     Object.assign(window[&quot;core&quot;], core);
 }
+</code></pre>
+<p>在代码中即可直接使用core全局对象来访问</p>
+<pre><code>core.event.test();core.test.test();
+core.ui.test();
+core .event.test():
 </code></pre>
 
             ]]>
