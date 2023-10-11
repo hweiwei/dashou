@@ -3,12 +3,102 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-10-10T11:27:58+08:00</updated>
+    <updated>2023-10-11T17:28:59+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>关于char模式文本缓存查看研究</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/guan-yu-charmo-shi-wen-ben-huan-cun-cha-kan-yan-jiu.html"/>
+        <id>https://hweiwei.github.io/dashou/guan-yu-charmo-shi-wen-ben-huan-cun-cha-kan-yan-jiu.html</id>
+
+        <updated>2023-10-11T17:28:59+08:00</updated>
+            <summary>
+                <![CDATA[
+                    怎么查看char模式文本缓存内容？我们可以借鉴官方关于动态合图的方式在场景的最上层加上一层来显示char缓存的文本内容，废话不多说，直接上代码 小伙伴们如果不知道什么是自执行函数，随便新建一个文件后缀名改成ts,将上面代码拷入文件中既能生效
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p class="msg msg--info">怎么查看char模式文本缓存内容？我们可以借鉴官方关于动态合图的方式在场景的最上层加上一层来显示char缓存的文本内容，废话不多说，直接上代码</p>
+<p><code></code></p>
+<div>
+<div>(() =&gt; {</div>
+<div>    //@ts-ignore</div>
+<div>    cc.Label.prototype.showDebug = function (show) {</div>
+<div>        if (show) {</div>
+<div>            if (!this._debugNode || !this._debugNode.isValid) {</div>
+<div>                let width = cc.visibleRect.width;</div>
+<div>                let height = cc.visibleRect.height;</div>
+<br>
+<div>                this._debugNode = new cc.Node("SHAREATLAS_DEBUG_NODE");</div>
+<div>                this._debugNode.width = width;</div>
+<div>                this._debugNode.height = height;</div>
+<div>                this._debugNode.x = width / 2;</div>
+<div>                this._debugNode.y = height / 2;</div>
+<div>                this._debugNode.zIndex = cc.macro.MAX_ZINDEX;</div>
+<div>                this._debugNode.parent = cc.director.getScene();</div>
+<br>
+<div>                //@ts-ignore</div>
+<div>                this._debugNode.groupIndex = cc.Node.BuiltinGroupIndex.DEBUG;</div>
+<div>                //@ts-ignore</div>
+<div>                cc.Camera._setupDebugCamera();</div>
+<br>
+<div>                let scroll = this._debugNode.addComponent(cc.ScrollView);</div>
+<br>
+<div>                let content = new cc.Node("CONTENT");</div>
+<div>                let layout = content.addComponent(cc.Layout);</div>
+<div>                layout.type = cc.Layout.Type.VERTICAL;</div>
+<div>                layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;</div>
+<div>                content.parent = this._debugNode;</div>
+<div>                content.width = 2048;</div>
+<div>                content.anchorY = 1;</div>
+<div>                content.x = 2048;</div>
+<br>
+<div>                scroll.content = content;</div>
+<br>
+<div>                let node = new cc.Node("ATLAS");</div>
+<div>                //@ts-ignore</div>
+<div>                let texture = cc.Label._shareAtlas.getTexture();</div>
+<div>                let spriteFrame = new cc.SpriteFrame();</div>
+<div>                spriteFrame.setTexture(texture);</div>
+<br>
+<div>                let sprite = node.addComponent(cc.Sprite);</div>
+<div>                sprite.spriteFrame = spriteFrame;</div>
+<br>
+<div>                node.parent = content;</div>
+<div>            }</div>
+<div>            return this._debugNode;</div>
+<div>        } else {</div>
+<div>            if (this._debugNode) {</div>
+<div>                this._debugNode.parent = null;</div>
+<div>                this._debugNode = null;</div>
+<div>            }</div>
+<div>        }</div>
+<div>    };</div>
+<div>})();</div>
+<div> </div>
+<div>直接写一个自执行函数为 cc.Label.prototype 添加一个 showDebug 方法。之后就可以在控制台上执行方法来查看char文本缓存</div>
+<div>我们来看下效果：</div>
+<div><figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/13/tup.jpg" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xs.jpg 300w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-sm.jpg 480w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-md.jpg 768w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-lg.jpg 1024w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xl.jpg 1360w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-2xl.jpg 1600w"  alt="" width="923" height="1045"></figure></div>
+<div> </div>
+<div>在控制台执行cc.Label.prototype.showDebug(true) 方法则可以在场景最上层看到当前的文本缓存。小伙伴们执行的时候可能会出现看不见的情况，别慌，因为默认设置了图层大小为2048*2048 ，拖动一下就能看到了。</div>
+<div>在控制台执行cc.Label.prototype.showDebug(false) 将关闭显示</div>
+<div> </div>
+<p class="msg msg--info">小伙伴们如果不知道什么是自执行函数，随便新建一个文件后缀名改成ts,将上面代码拷入文件中既能生效</p>
+<div> </div>
+<div> </div>
+<div> </div>
+</div>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>ts命名空间合并</title>
         <author>
