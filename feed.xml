@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2023-10-11T17:28:59+08:00</updated>
+    <updated>2024-05-13T18:49:29+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -17,7 +17,7 @@
         <link href="https://hweiwei.github.io/dashou/guan-yu-charmo-shi-wen-ben-huan-cun-cha-kan-yan-jiu.html"/>
         <id>https://hweiwei.github.io/dashou/guan-yu-charmo-shi-wen-ben-huan-cun-cha-kan-yan-jiu.html</id>
 
-        <updated>2023-10-11T17:28:59+08:00</updated>
+        <updated>2023-10-11T17:26:25+08:00</updated>
             <summary>
                 <![CDATA[
                     怎么查看char模式文本缓存内容？我们可以借鉴官方关于动态合图的方式在场景的最上层加上一层来显示char缓存的文本内容，废话不多说，直接上代码 小伙伴们如果不知道什么是自执行函数，随便新建一个文件后缀名改成ts,将上面代码拷入文件中既能生效
@@ -85,7 +85,7 @@
 <div> </div>
 <div>直接写一个自执行函数为 cc.Label.prototype 添加一个 showDebug 方法。之后就可以在控制台上执行方法来查看char文本缓存</div>
 <div>我们来看下效果：</div>
-<div><figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/13/tup.jpg" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xs.jpg 300w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-sm.jpg 480w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-md.jpg 768w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-lg.jpg 1024w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xl.jpg 1360w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-2xl.jpg 1600w"  alt="" width="923" height="1045"></figure></div>
+<div><figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/13/tup.jpg" alt="" width="923" height="1045" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xs.jpg 300w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-sm.jpg 480w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-md.jpg 768w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-lg.jpg 1024w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-xl.jpg 1360w ,https://hweiwei.github.io/dashou/media/posts/13/responsive/tup-2xl.jpg 1600w"></figure></div>
 <div> </div>
 <div>在控制台执行cc.Label.prototype.showDebug(true) 方法则可以在场景最上层看到当前的文本缓存。小伙伴们执行的时候可能会出现看不见的情况，别慌，因为默认设置了图层大小为2048*2048 ，拖动一下就能看到了。</div>
 <div>在控制台执行cc.Label.prototype.showDebug(false) 将关闭显示</div>
@@ -107,7 +107,7 @@
         <link href="https://hweiwei.github.io/dashou/tsming-ming-kong-jian-he-bing.html"/>
         <id>https://hweiwei.github.io/dashou/tsming-ming-kong-jian-he-bing.html</id>
 
-        <updated>2023-10-10T11:27:58+08:00</updated>
+        <updated>2023-10-10T11:20:48+08:00</updated>
             <summary>
                 <![CDATA[
                     在用ts 开发游戏的时候,发现命名空间使用比较不友好，需要文件引入以及使用声明文件.d.ts才能做到很好的代码提示，但是在复杂类设计的情况下.d.ts书写起来也比较费劲，于是开始研究怎么才能做到用命名空间隔离作用域并且能够有很好的使用体验。当前主要实现方式是挂载在windows底下，并且将同命名空间下的对象合并，来达到效果，效果比较理想。上代码： //UIMgr.ts文件实现 /* *&hellip;
@@ -115,8 +115,7 @@
             </summary>
         <content type="html">
             <![CDATA[
-                <p>在用ts 开发游戏的时候,发现命名空间使用比较不友好，需要文件引入以及使用声明文件.d.ts才能做到很好的代码提示，但是在复杂类设计的情况下.d.ts书写起来也比较费劲，于是开始研究怎么才能做到用命名空间隔离作用域并且能够有很好的使用体验。当前主要实现方式是挂载在windows底下，并且将同命名空间下的对象合并，来达到效果，效果比较理想。上代码：</p>
-<pre><code>//UIMgr.ts文件实现 
+                <p>在用ts 开发游戏的时候,发现命名空间使用比较不友好，需要文件引入以及使用声明文件.d.ts才能做到很好的代码提示，但是在复杂类设计的情况下.d.ts书写起来也比较费劲，于是开始研究怎么才能做到用命名空间隔离作用域并且能够有很好的使用体验。当前主要实现方式是挂载在windows底下，并且将同命名空间下的对象合并，来达到效果，效果比较理想。上代码：</p><pre><code>//UIMgr.ts文件实现 
 /*
  * @author: huangww
  * @Date: 2021-03-08 17:16:30
@@ -172,8 +171,7 @@ if (!window[&quot;core&quot;]) {
     Object.assign(window[&quot;core&quot;], core);
 }
 </code></pre>
-<p>在代码中即可直接使用core全局对象来访问</p>
-<pre><code>core.event.test();core.test.test();
+<p>在代码中即可直接使用core全局对象来访问</p><pre><code>core.event.test();core.test.test();
 core.ui.test();
 core .event.test():
 </code></pre>
@@ -190,8 +188,28 @@ core .event.test():
         <id>https://hweiwei.github.io/dashou/bei-sai-er-qu-xian-yan-jiu.html</id>
 
         <updated>2023-09-15T16:59:51+08:00</updated>
-            <summary></summary>
-        <content></content>
+            <summary>
+                <![CDATA[
+                    核心公式： /** * * @param&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>核心公式：</p><p>/**
+     *
+     * @param C1 起始点
+     * @param C2 控制点1
+     * @param C3 控制点2
+     * @param C4 目标点
+     * @param t  时间拟合
+     * @returns
+     */
+    bezier(C1, C2, C3, C4, t) {
+        var t1 = 1 - t;
+        return t1 * (t1 * (C1 + (C2 * 3 - C1) * t) + C3 * 3 * t * t) + C4 * t * t * t;
+    }</p><p>按照该公式，可以在三维中分别实现x,y,z轴的贝塞尔曲线变化，达到三维贝塞尔曲线效果，二维只用实现x,y坐标即可</p>
+            ]]>
+        </content>
     </entry>
     <entry>
         <title>cocos-webview 添加关闭按钮-android篇</title>
@@ -201,7 +219,7 @@ core .event.test():
         <link href="https://hweiwei.github.io/dashou/cocos-webview-tian-jia-guan-bi-an-niu-androidpian.html"/>
         <id>https://hweiwei.github.io/dashou/cocos-webview-tian-jia-guan-bi-an-niu-androidpian.html</id>
 
-        <updated>2023-08-03T09:47:33+08:00</updated>
+        <updated>2023-08-03T09:47:03+08:00</updated>
             <summary>
                 <![CDATA[
                     **前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 **&hellip;
@@ -209,11 +227,8 @@ core .event.test():
             </summary>
         <content type="html">
             <![CDATA[
-                <p>**前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 **</p>
-<p>观察cocos2dxWebViewHelper 发现，cocos 通过这个类来管理游戏内的webview，所以我们只需要控制好在创建，销毁 webview 的时候，将相关ui做同样的动作即可</p>
-<p>这边先实现下关闭按钮的创建。
-在 cocos2dxWebViewHelper中添加方法</p>
-<pre><code>    public static void createSkipButton(int index) {
+                <p>**前言：cocos webview 作为一个独立的容器在ui层级之上，所以我们想通过游戏内ui来操控它是不容易的事情，把操作ui直接加到webview 容器层上，可以解决这个问题 **</p><p>观察cocos2dxWebViewHelper 发现，cocos 通过这个类来管理游戏内的webview，所以我们只需要控制好在创建，销毁 webview 的时候，将相关ui做同样的动作即可</p><p>这边先实现下关闭按钮的创建。
+在 cocos2dxWebViewHelper中添加方法</p><pre><code>    public static void createSkipButton(int index) {
 
         skipImgBtn = new ImageView(sCocos2dxActivity);
 //        skipImgBtn.setRotation(90);
@@ -262,20 +277,17 @@ core .event.test():
         
 </code></pre>
 <p>来创建关闭按钮
-添加移除方法</p>
-<pre><code>public static void removeSkipBtn(){
+添加移除方法</p><pre><code>public static void removeSkipBtn(){
         if (skipImgBtn!= null){
             sLayout.removeView(skipImgBtn);
             skipImgBtn = null;
         }
     }
 </code></pre>
-<p>skipImgBtn   记得在类中声明</p>
-<pre><code>private static ImageView skipImgBtn = null;
+<p>skipImgBtn   记得在类中声明</p><pre><code>private static ImageView skipImgBtn = null;
     private static int btnIndex = 0;
 </code></pre>
-<p>方法实现完之后，只需在createWebView 方法中 跟着创建即可</p>
-<pre><code> public static int createWebView() {
+<p>方法实现完之后，只需在createWebView 方法中 跟着创建即可</p><pre><code> public static int createWebView() {
         final int index = viewTag;
         sCocos2dxActivity.runOnUiThread(new Runnable() {
             @Override
@@ -293,8 +305,7 @@ core .event.test():
         return viewTag++;
     }
 </code></pre>
-<p>在移除中跟着移除</p>
-<pre><code>public static void removeWebView(final int index) {
+<p>在移除中跟着移除</p><pre><code>public static void removeWebView(final int index) {
         sCocos2dxActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -311,8 +322,7 @@ core .event.test():
         });
     }
 </code></pre>
-<p>别忘了在显隐控制中，跟着操作</p>
-<pre><code> public static void setVisible(final int index, final boolean visible) {
+<p>别忘了在显隐控制中，跟着操作</p><pre><code> public static void setVisible(final int index, final boolean visible) {
         sCocos2dxActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -328,7 +338,6 @@ core .event.test():
     }
 </code></pre>
 <p>这样子就实现了在cocos webview 上添加关闭按钮的功能。</p>
-
             ]]>
         </content>
     </entry>
@@ -340,7 +349,7 @@ core .event.test():
         <link href="https://hweiwei.github.io/dashou/dong-tai-gui-hua-xian-ding-tiao-jian-qiu-zui-you-jie-2.html"/>
         <id>https://hweiwei.github.io/dashou/dong-tai-gui-hua-xian-ding-tiao-jian-qiu-zui-you-jie-2.html</id>
 
-        <updated>2023-08-03T09:53:28+08:00</updated>
+        <updated>2023-08-01T14:46:50+08:00</updated>
             <summary>
                 <![CDATA[
                     原文发布于微信公众号https://mp.weixin.qq.com/s?__biz=MzI4MDA3MTcyMA==&amp;mid=2247483680&amp;idx=1&amp;sn=49c0d6934538cac1fe79d0430459b8d1&amp;chksm=ebbf5a67dcc8d371ca1f64da1dc7b23637cbbf1fd58e521e2cd6f4d37b4dcc79277343c81375&amp;token=1598275063&amp;lang=zh_CN#rd 游戏中经常会用到一些buff道具，最常见的比如建造建筑时使用的时间缩短道具，行军加速道具包，血量回复包等。在几种道具中选择最合适的道具包达到目标效果。许多游戏中的解决方法是使用贪心算法，这种只是一般可行解，并不被玩家接受。用动态规划算法可以构造出最优解。 动态规划过程是：每次决策依赖于当前状态，又随即引起状态的转移。一个决策序列就是在变化的状态中产生出来的，所以，这种多阶段最优化决策解决问题的过程就称为动态规划 我们先来构造一般意义上的最优解 假设当前我们在建造一个建筑，建筑需花费n小时的时间，玩家拥有3种道具a、b、c,分别能使建筑时间缩短1、2、3小时，我们来看看每个阶段的最优解情况&hellip;
@@ -390,10 +399,10 @@ core .event.test():
 </tbody>
 </table>
 <p>我们来解释下表格所表达的意思，<strong>一般的我们认为在所有道具都参与的情况下的解决方案为最优解</strong>，并且优先使用时效长的道具</p>
-<figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/9/640.png" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/9/responsive/640-xs.png 300w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-sm.png 480w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-md.png 768w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-lg.png 1024w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-xl.png 1360w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-2xl.png 1600w"  alt="" width="723" height="168"></figure>
+<figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/9/640.png" alt="" width="723" height="168" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/9/responsive/640-xs.png 300w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-sm.png 480w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-md.png 768w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-lg.png 1024w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-xl.png 1360w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-2xl.png 1600w"></figure>
 <p> </p>
 <p>当目标为缩短1小时的时候的最有解，结果为使用 1个道具a。同理，目标为2时使用一个b,目标为3时使用一个道具3。观察3中的第二列解</p>
-<figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/9/640-1.png" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-xs.png 300w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-sm.png 480w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-md.png 768w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-lg.png 1024w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-xl.png 1360w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-2xl.png 1600w"  alt="" width="206" height="43"></figure>
+<figure class="post__image"><img loading="lazy"  src="https://hweiwei.github.io/dashou/media/posts/9/640-1.png" alt="" width="206" height="43" sizes="100vw" srcset="https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-xs.png 300w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-sm.png 480w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-md.png 768w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-lg.png 1024w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-xl.png 1360w ,https://hweiwei.github.io/dashou/media/posts/9/responsive/640-1-2xl.png 1600w"></figure>
 <p> </p>
 <p>意思为当目标为缩短3个小时时，在拥有道具a和b情况下的最有解。</p>
 <p>至此，大家应该明白表格所表达的意思了吧。</p>
@@ -580,7 +589,7 @@ core .event.test():
         <link href="https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html"/>
         <id>https://hweiwei.github.io/dashou/cocosre-geng-dong-tai-ban-ben-di-zhi-yan-jiu-2.html</id>
 
-        <updated>2023-08-01T13:33:46+08:00</updated>
+        <updated>2023-08-01T09:48:32+08:00</updated>
             <summary>
                 <![CDATA[
                     cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos&hellip;
@@ -588,14 +597,13 @@ core .event.test():
             </summary>
         <content type="html">
             <![CDATA[
-                <p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p>
-<ol>
-<li><p>获取本地热更文件project.manifest 获得内容data 并解析 </p>
+                <p>cocos creator 2.x 版本中，关于热更的远程地址，版本等信息来源于工程中写入的project.manifest ，没有提供外部修改接口。如果想更自由的管理版本、热更地址配置，势必要修改源码。但是修改源码对于cocos 引擎版本升级不够友好。经过研究jsb 相关内容，这边提供一个在不修改源码的情况下达到自由控制版本信息的方法。</p><ol>
+<li>获取本地热更文件project.manifest 获得内容data 并解析</li>
+</ol>
 <pre><code>let asset = JSON.parse(data._nativeAsset);  
 </code></pre>
-</li>
-<li><p>修改asset 内容</p>
-</li>
+<ol start="2">
+<li>修改asset 内容</li>
 </ol>
 <pre><code>asset.packageUrl = this.serverUrl + HOT_PACKAGE + version;
 asset.remoteManifestUrl = this.serverUrl + HOT_PACKAGE + version + manifest + &quot;/project.manifest&quot;;
@@ -612,8 +620,7 @@ asset.remoteVersionUrl = this.serverUrl + HOT_PACKAGE + version + manifest + &qu
     jsb.fileUtils.writeStringToFile(JSON.stringify(json), this.storagePath + &quot;/project.manifest&quot;);
 }
 </code></pre>
-<p>这一步的目的是因为源码中，会优先使用存贮的热更文件</p>
-<pre><code>// Compare with cached manifest to determine which one to use
+<p>这一步的目的是因为源码中，会优先使用存贮的热更文件</p><pre><code>// Compare with cached manifest to determine which one to use
 if (cachedManifest)
 {
     bool localNewer = _localManifest-&gt;versionGreater(cachedManifest, _versionCompareHandle);
@@ -636,11 +643,9 @@ if (cachedManifest)
 </ol>
 <pre><code>let mani = new jsb.Manifest(JSON.stringify(asset), this.storagePath);
 </code></pre>
-<p>5.热更管理器加载该配置对象即可。</p>
-<pre><code>this._assetManager.loadLocalManifest(mani, this.storagePath);
+<p>5.热更管理器加载该配置对象即可。</p><pre><code>this._assetManager.loadLocalManifest(mani, this.storagePath);
 </code></pre>
-<p><em><strong>注意</strong></em>：在构造热更管理器时不要传入原始的manifest 文件，否则loadLocalManifest方法将失效</p>
-<pre><code>this._assetManager = new jsb.AssetsManager(&quot;&quot;, this.storagePath, this.versionCompareHandle);
+<p><em><strong>注意</strong></em>：在构造热更管理器时不要传入原始的manifest 文件，否则loadLocalManifest方法将失效</p><pre><code>this._assetManager = new jsb.AssetsManager(&quot;&quot;, this.storagePath, this.versionCompareHandle);
 </code></pre>
 
             ]]>
@@ -673,7 +678,7 @@ if (cachedManifest)
         <link href="https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html"/>
         <id>https://hweiwei.github.io/dashou/jie-jue-24x-ios-zhen-ji-shan-tui-wen-ti.html</id>
 
-        <updated>2022-09-23T10:49:36+08:00</updated>
+        <updated>2022-09-23T10:43:08+08:00</updated>
             <summary>
                 <![CDATA[
                     由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp&hellip;
@@ -681,8 +686,7 @@ if (cachedManifest)
             </summary>
         <content type="html">
             <![CDATA[
-                <p>由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported</p>
-<pre><code>
+                <p>由于 jit 不支持ios ，引擎错误开启支持导致。修改 \cocos2d-x\cocos\scripting\js-bindings\jswrapper\v8\ScriptEngine.cpp 该路径下方法jitSupported</p><pre><code>
 bool jitSupported() {
             #if CC_IOS_FORCE_DISABLE_JIT
             return false;
@@ -749,7 +753,7 @@ bool jitSupported() {
         <link href="https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html"/>
         <id>https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html</id>
 
-        <updated>2023-08-01T10:07:36+08:00</updated>
+        <updated>2022-08-18T16:27:38+08:00</updated>
             <summary>
                 <![CDATA[
                     在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。 经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去
@@ -806,7 +810,7 @@ bool jitSupported() {
         <link href="https://hweiwei.github.io/dashou/safearea-component.html"/>
         <id>https://hweiwei.github.io/dashou/safearea-component.html</id>
 
-        <updated>2022-08-18T09:16:38+08:00</updated>
+        <updated>2022-08-17T15:31:56+08:00</updated>
             <summary>
                 <![CDATA[
                     cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const&hellip;
