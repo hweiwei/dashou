@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html",
+            "url": "https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html",
+            "title": "解决ios热更地址失效问题",
+            "summary": "ios 在非正常换包情况下，会使原来的热更地址失效，那么我们需要判定当前的writePath是否是有添加进读取目录的，将引擎提供的热更模版修改下就能达到目的，直接上代码 var loadSearchPaths =&hellip;",
+            "content_html": "<p>ios 在非正常换包情况下，会使原来的热更地址失效，那么我们需要判定当前的writePath是否是有添加进读取目录的，将引擎提供的热更模版修改下就能达到目的，直接上代码</p><pre><code>var loadSearchPaths = function () {\n    let writablepath = jsb.fileUtils.getWritablePath();\n    var hotUpdateSearchPaths = localStorage.getItem(&quot;HotUpdateSearchPaths&quot;);\n    if (hotUpdateSearchPaths &amp;&amp; hotUpdateSearchPaths.indexOf(writablepath) != -1) {\n        var paths = JSON.parse(hotUpdateSearchPaths);\n        jsb.fileUtils.setSearchPaths(paths);\n        var fileList = [];\n        var storagePath = paths[0] || &quot;&quot;;\n        var tempPath = storagePath + &quot;_temp/&quot;;\n        var baseOffset = tempPath.length;\n\n        if (jsb.fileUtils.isDirectoryExist(tempPath) &amp;&amp; !jsb.fileUtils.isFileExist(tempPath + &quot;project.manifest.temp&quot;)) {\n            jsb.fileUtils.listFilesRecursively(tempPath, fileList);\n            fileList.forEach((srcPath) =&gt; {\n                var relativePath = srcPath.substr(baseOffset);\n                var dstPath = storagePath + relativePath;\n\n                if (srcPath[srcPath.length] == &quot;/&quot;) {\n                    cc.fileUtils.createDirectory(dstPath);\n                } else {\n                    if (cc.fileUtils.isFileExist(dstPath)) {\n                        cc.fileUtils.removeFile(dstPath);\n                    }\n                    cc.fileUtils.renameFile(srcPath, dstPath);\n                }\n            });\n            cc.fileUtils.removeDirectory(tempPath);\n        }\n    } else {\n        let path = writablepath + &quot;remote-hot/hall&quot;;\n        jsb.fileUtils.addSearchPath(path, true);\n    }\n};\n</code></pre>\n",
+            "author": {
+                "name": "黄伟伟"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-07-30T15:30:06+08:00",
+            "date_modified": "2024-07-30T15:30:06+08:00"
+        },
+        {
             "id": "https://hweiwei.github.io/dashou/bei-sai-er-qu-xian-yan-jiu-2.html",
             "url": "https://hweiwei.github.io/dashou/bei-sai-er-qu-xian-yan-jiu-2.html",
             "title": "贝塞尔曲线研究",
@@ -133,20 +147,6 @@
             ],
             "date_published": "2022-08-18T16:27:38+08:00",
             "date_modified": "2023-08-01T10:07:36+08:00"
-        },
-        {
-            "id": "https://hweiwei.github.io/dashou/safearea-component.html",
-            "url": "https://hweiwei.github.io/dashou/safearea-component.html",
-            "title": "异形屏适配组件",
-            "summary": "cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const&hellip;",
-            "content_html": "<h3 id=\"cocos-creator-提供了safearea-组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：\">cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：</h3>\n<pre><code>\nconst { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator;\n@ccclass\n@executeInEditMode\n@requireComponent(cc.Widget)\n@executionOrder(1000)\n@menu(&quot;tools/SafeArea&quot;)\nexport default class SafeArea extends cc.Component {\n    @property({\n        tooltip: &quot;异形屏适配&quot;,\n        displayName: &quot;适配左边&quot;,\n    })\n    left: boolean = true;\n\n    @property({\n        tooltip: &quot;异形屏适配&quot;,\n        displayName: &quot;适配右边&quot;,\n    })\n    right: boolean = false;\n\n    onLoad() {\n        let widget = this.node.getComponent(cc.Widget);\n        if (!widget) {\n            return;\n        }\n        widget.updateAlignment();\n\n        let safeArea = cc.sys.getSafeAreaRect();\n        let viewsize = cc.winSize;\n        let widthOffset = viewsize.width - safeArea.width;\n\n        if (this.left &amp;&amp; widget.isAlignLeft) {\n            widget.left += safeArea.x;\n        }\n\n        if (this.right &amp;&amp; widget.isAlignRight) {\n            widget.right += widthOffset - safeArea.x;\n        }\n\n        widget.updateAlignment();\n    }\n\n    protected onEnable(): void {}\n}\n</code></pre>\n",
-            "author": {
-                "name": "黄伟伟"
-            },
-            "tags": [
-            ],
-            "date_published": "2022-08-17T15:31:56+08:00",
-            "date_modified": "2022-08-18T09:16:38+08:00"
         }
     ]
 }

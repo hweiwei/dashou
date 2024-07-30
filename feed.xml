@@ -3,12 +3,66 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2024-05-13T19:01:40+08:00</updated>
+    <updated>2024-07-30T15:30:06+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>解决ios热更地址失效问题</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html"/>
+        <id>https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html</id>
+
+        <updated>2024-07-30T15:30:06+08:00</updated>
+            <summary>
+                <![CDATA[
+                    ios 在非正常换包情况下，会使原来的热更地址失效，那么我们需要判定当前的writePath是否是有添加进读取目录的，将引擎提供的热更模版修改下就能达到目的，直接上代码 var loadSearchPaths =&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>ios 在非正常换包情况下，会使原来的热更地址失效，那么我们需要判定当前的writePath是否是有添加进读取目录的，将引擎提供的热更模版修改下就能达到目的，直接上代码</p><pre><code>var loadSearchPaths = function () {
+    let writablepath = jsb.fileUtils.getWritablePath();
+    var hotUpdateSearchPaths = localStorage.getItem(&quot;HotUpdateSearchPaths&quot;);
+    if (hotUpdateSearchPaths &amp;&amp; hotUpdateSearchPaths.indexOf(writablepath) != -1) {
+        var paths = JSON.parse(hotUpdateSearchPaths);
+        jsb.fileUtils.setSearchPaths(paths);
+        var fileList = [];
+        var storagePath = paths[0] || &quot;&quot;;
+        var tempPath = storagePath + &quot;_temp/&quot;;
+        var baseOffset = tempPath.length;
+
+        if (jsb.fileUtils.isDirectoryExist(tempPath) &amp;&amp; !jsb.fileUtils.isFileExist(tempPath + &quot;project.manifest.temp&quot;)) {
+            jsb.fileUtils.listFilesRecursively(tempPath, fileList);
+            fileList.forEach((srcPath) =&gt; {
+                var relativePath = srcPath.substr(baseOffset);
+                var dstPath = storagePath + relativePath;
+
+                if (srcPath[srcPath.length] == &quot;/&quot;) {
+                    cc.fileUtils.createDirectory(dstPath);
+                } else {
+                    if (cc.fileUtils.isFileExist(dstPath)) {
+                        cc.fileUtils.removeFile(dstPath);
+                    }
+                    cc.fileUtils.renameFile(srcPath, dstPath);
+                }
+            });
+            cc.fileUtils.removeDirectory(tempPath);
+        }
+    } else {
+        let path = writablepath + &quot;remote-hot/hall&quot;;
+        jsb.fileUtils.addSearchPath(path, true);
+    }
+};
+</code></pre>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>贝塞尔曲线研究</title>
         <author>
@@ -801,72 +855,6 @@ bool jitSupported() {
 <div>    }</div>
 </div>
 <p><code></code></p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>异形屏适配组件</title>
-        <author>
-            <name>黄伟伟</name>
-        </author>
-        <link href="https://hweiwei.github.io/dashou/safearea-component.html"/>
-        <id>https://hweiwei.github.io/dashou/safearea-component.html</id>
-
-        <updated>2022-08-17T15:31:56+08:00</updated>
-            <summary>
-                <![CDATA[
-                    cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下： const&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <h3 id="cocos-creator-提供了safearea-组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：">cocos creator 提供了safeArea 组件来适配刘海屏的情况，但是该组件只能在根节点生效，并且全屏适配，并不是很友好。我们仿造他实现一个轻量的子节点左右适配。实现如下：</h3>
-<pre><code>
-const { ccclass, property, menu, executeInEditMode, requireComponent, executionOrder } = cc._decorator;
-@ccclass
-@executeInEditMode
-@requireComponent(cc.Widget)
-@executionOrder(1000)
-@menu(&quot;tools/SafeArea&quot;)
-export default class SafeArea extends cc.Component {
-    @property({
-        tooltip: &quot;异形屏适配&quot;,
-        displayName: &quot;适配左边&quot;,
-    })
-    left: boolean = true;
-
-    @property({
-        tooltip: &quot;异形屏适配&quot;,
-        displayName: &quot;适配右边&quot;,
-    })
-    right: boolean = false;
-
-    onLoad() {
-        let widget = this.node.getComponent(cc.Widget);
-        if (!widget) {
-            return;
-        }
-        widget.updateAlignment();
-
-        let safeArea = cc.sys.getSafeAreaRect();
-        let viewsize = cc.winSize;
-        let widthOffset = viewsize.width - safeArea.width;
-
-        if (this.left &amp;&amp; widget.isAlignLeft) {
-            widget.left += safeArea.x;
-        }
-
-        if (this.right &amp;&amp; widget.isAlignRight) {
-            widget.right += widthOffset - safeArea.x;
-        }
-
-        widget.updateAlignment();
-    }
-
-    protected onEnable(): void {}
-}
-</code></pre>
-
             ]]>
         </content>
     </entry>
