@@ -3,7 +3,7 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2024-09-29T16:53:50+08:00</updated>
+    <updated>2024-09-29T17:56:50+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
@@ -20,12 +20,94 @@
         <updated>2024-09-29T16:53:50+08:00</updated>
             <summary>
                 <![CDATA[
-                    论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案
+                    论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案 先定义子节点组件一个虚函数 setVisible @ccclass(&quot;ScrollViewExItem&quot;) export&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案</p>
+                <p>论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案</p><p>先定义子节点组件一个虚函数 setVisible</p><pre><code>
+@ccclass(&quot;ScrollViewExItem&quot;)
+export abstract class ScrollViewExItem extends Component {
+    abstract setVisible(b: boolean);
+}
+</code></pre>
+<p>定义scrollview扩展持有 子节点列表</p><pre><code>
+@ccclass(&quot;ScrollViewEx&quot;)
+@requireComponent(cc.ScrollView)
+@menu(&quot;tools/ScrollViewEx&quot;)
+export default class ScrollViewEx extends Component {
+    _scrollview: cc.ScrollView;
+    _skeList: ScrollViewExItem[] = [];
+    onLoad() {
+        this._scrollview = this.node.getComponent(cc.ScrollView);
+    }
+
+    walk&lt;T extends ScrollViewExItem&gt;(comp: new (...args: any[]) =&gt; T) {
+        this._skeList = [];
+        this._scrollview.content.walk(
+            (node: cc.Node) =&gt; {
+                let c_sp = node.getComponent(comp);
+                if (c_sp) {
+                    this._skeList.push(c_sp);
+                }
+            },
+            (node: cc.Node) =&gt; {}
+        );
+
+        this.onScroll();
+    }
+
+    protected onEnable(): void {
+        this._scrollview.node.on(cc.ScrollView.EventType.SCROLLING, this.onScroll, this);
+        this.node.on(
+            cc.Node.EventType.SIZE_CHANGED,
+            () =&gt; {
+                this.scheduleOnce(() =&gt; {
+                    this.onScroll();
+                });
+            },
+            this
+        );
+    }
+
+    protected onDisable(): void {
+        this._scrollview.node.off(cc.ScrollView.EventType.SCROLLING, this.onScroll, this);
+    }
+
+    onScroll() {
+        if (!cc.isValid(this._scrollview.node)) {
+            return;
+        }
+        let viewRect = cc.rect(
+            0,
+            -this._scrollview.node.getComponent(cc.UITransform).height / 2,
+            this._scrollview.node.getComponent(cc.UITransform).width,
+            this._scrollview.node.getComponent(cc.UITransform).height / 2
+        );
+        for (let skeNode of this._skeList) {
+            if (!cc.isValid(skeNode.node)) {
+                return;
+            }
+            let curPos = this._scrollview.node
+                .getComponent(cc.UITransform)
+                .convertToNodeSpaceAR(skeNode.node.getComponent(cc.UITransform).convertToWorldSpaceAR(cc.v3(0, 0)));
+            let curRect = cc.rect(
+                curPos.x - skeNode.node.getComponent(cc.UITransform).width / 2.0,
+                curPos.y - skeNode.node.getComponent(cc.UITransform).height / 2.0,
+                skeNode.node.getComponent(cc.UITransform).width,
+                skeNode.node.getComponent(cc.UITransform).height
+            );
+
+            skeNode.setVisible(viewRect.intersects(curRect));
+        }
+    }
+
+    onDestroy() {
+        this._skeList.length = 0;
+    }
+}
+</code></pre>
+<p>目的是通过子节点的大小，用矩形检测来达到控制显隐的目的</p><p>子节点集成scrollviewExItem之后，重写setVisible 方法达到控制的目的</p><p>scrollViewEx 通过walk函数来激活 ,具体示例在游戏列表scrollViewEx中</p>
             ]]>
         </content>
     </entry>
