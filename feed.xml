@@ -3,12 +3,32 @@
     <title>大手游戏</title>
     <link href="https://hweiwei.github.io/dashou/feed.xml" rel="self" />
     <link href="https://hweiwei.github.io/dashou" />
-    <updated>2024-07-30T15:30:06+08:00</updated>
+    <updated>2024-09-29T16:53:50+08:00</updated>
     <author>
         <name>黄伟伟</name>
     </author>
     <id>https://hweiwei.github.io/dashou</id>
 
+    <entry>
+        <title>scrollview 优化扩展</title>
+        <author>
+            <name>黄伟伟</name>
+        </author>
+        <link href="https://hweiwei.github.io/dashou/scrollview-you-hua-kuo-zhan.html"/>
+        <id>https://hweiwei.github.io/dashou/scrollview-you-hua-kuo-zhan.html</id>
+
+        <updated>2024-09-29T16:53:50+08:00</updated>
+            <summary>
+                <![CDATA[
+                    论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>解决ios热更地址失效问题</title>
         <author>
@@ -798,63 +818,6 @@ bool jitSupported() {
                 
 </code></pre>
 
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>ios 覆盖安装问题研究</title>
-        <author>
-            <name>黄伟伟</name>
-        </author>
-        <link href="https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html"/>
-        <id>https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html</id>
-
-        <updated>2022-08-18T16:27:38+08:00</updated>
-            <summary>
-                <![CDATA[
-                    在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。 经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <p>在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。</p>
-<p>经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即<span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去</span></p>
-<p><code></code></p>
-<div>
-<div>let writablepath = jsb.fileUtils.getWritablePath();</div>
-<div>    var hotUpdateSearchPaths = localStorage.getItem("HotUpdateSearchPaths");</div>
-<br>
-<div>    if (hotUpdateSearchPaths &amp;&amp; hotUpdateSearchPaths.indexOf(writablepath) != -1) {</div>
-<div>        var paths = JSON.parse(hotUpdateSearchPaths);</div>
-<div>        jsb.fileUtils.setSearchPaths(paths);</div>
-<div>        var fileList = [];</div>
-<div>        var storagePath = paths[0] || "";</div>
-<div>        var tempPath = storagePath + "_temp/";</div>
-<div>        var baseOffset = tempPath.length;</div>
-<br>
-<div>        if (jsb.fileUtils.isDirectoryExist(tempPath) &amp;&amp; !jsb.fileUtils.isFileExist(tempPath + "project.manifest.temp")) {</div>
-<div>            jsb.fileUtils.listFilesRecursively(tempPath, fileList);</div>
-<div>            fileList.forEach((srcPath) =&gt; {</div>
-<div>                var relativePath = srcPath.substr(baseOffset);</div>
-<div>                var dstPath = storagePath + relativePath;</div>
-<br>
-<div>                if (srcPath[srcPath.length] == "/") {</div>
-<div>                    cc.fileUtils.createDirectory(dstPath);</div>
-<div>                } else {</div>
-<div>                    if (cc.fileUtils.isFileExist(dstPath)) {</div>
-<div>                        cc.fileUtils.removeFile(dstPath);</div>
-<div>                    }</div>
-<div>                    cc.fileUtils.renameFile(srcPath, dstPath);</div>
-<div>                }</div>
-<div>            });</div>
-<div>            cc.fileUtils.removeDirectory(tempPath);</div>
-<div>        }</div>
-<div>    } else {</div>
-<div>        let path = writablepath + "remote-hot/hall"; //热更存放路径添加</div>
-<div>        jsb.fileUtils.addSearchPath(path, true);</div>
-<div>    }</div>
-</div>
-<p><code></code></p>
             ]]>
         </content>
     </entry>

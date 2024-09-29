@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://hweiwei.github.io/dashou/scrollview-you-hua-kuo-zhan.html",
+            "url": "https://hweiwei.github.io/dashou/scrollview-you-hua-kuo-zhan.html",
+            "title": "scrollview 优化扩展",
+            "summary": "论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案",
+            "content_html": "<p>论坛上的关于scrollview的列表优化有很多文章，这边提供一个新思路，用于在子节点尺寸不同情况下的使用方案</p>",
+            "author": {
+                "name": "黄伟伟"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-09-29T16:53:50+08:00",
+            "date_modified": "2024-09-29T16:53:50+08:00"
+        },
+        {
             "id": "https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html",
             "url": "https://hweiwei.github.io/dashou/jie-jue-iosre-geng-di-zhi-shi-xiao-wen-ti.html",
             "title": "解决ios热更地址失效问题",
@@ -133,20 +147,6 @@
             ],
             "date_published": "2022-09-23T10:43:08+08:00",
             "date_modified": "2022-09-23T10:49:36+08:00"
-        },
-        {
-            "id": "https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html",
-            "url": "https://hweiwei.github.io/dashou/guan-yu-cocos-creator-duo-bundle-re-geng-yan-jiu.html",
-            "title": "ios 覆盖安装问题研究",
-            "summary": "在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。 经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去",
-            "content_html": "<p>在实现cocos热更方案过程中，一切都很顺利。所有工作完成之后，发现ios 在覆盖安装之后，如果没有清理缓存，即使安装的版本是旧的也不会进行热更。这种情况，比较好理解，版本文件还在，所以比对版本文件没有问题就不会进行热更。真正出问题的是游戏启动后，竟然使用的脚本是覆盖安装后的，而不是热更缓存的。这个问题挺头疼。</p>\n<p>经过研究发现，覆盖安装后的ios包，并不是在原来的安装包内存上覆盖替换，而是会把旧包的内存清理掉，在新的内存上安装包。放在游戏内理解即<span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);\">WritablePath 发生了变化，所以我们在官方的热更方案上，将新的发现加了上去</span></p>\n<p><code></code></p>\n<div>\n<div>let writablepath = jsb.fileUtils.getWritablePath();</div>\n<div>    var hotUpdateSearchPaths = localStorage.getItem(\"HotUpdateSearchPaths\");</div>\n<br>\n<div>    if (hotUpdateSearchPaths &amp;&amp; hotUpdateSearchPaths.indexOf(writablepath) != -1) {</div>\n<div>        var paths = JSON.parse(hotUpdateSearchPaths);</div>\n<div>        jsb.fileUtils.setSearchPaths(paths);</div>\n<div>        var fileList = [];</div>\n<div>        var storagePath = paths[0] || \"\";</div>\n<div>        var tempPath = storagePath + \"_temp/\";</div>\n<div>        var baseOffset = tempPath.length;</div>\n<br>\n<div>        if (jsb.fileUtils.isDirectoryExist(tempPath) &amp;&amp; !jsb.fileUtils.isFileExist(tempPath + \"project.manifest.temp\")) {</div>\n<div>            jsb.fileUtils.listFilesRecursively(tempPath, fileList);</div>\n<div>            fileList.forEach((srcPath) =&gt; {</div>\n<div>                var relativePath = srcPath.substr(baseOffset);</div>\n<div>                var dstPath = storagePath + relativePath;</div>\n<br>\n<div>                if (srcPath[srcPath.length] == \"/\") {</div>\n<div>                    cc.fileUtils.createDirectory(dstPath);</div>\n<div>                } else {</div>\n<div>                    if (cc.fileUtils.isFileExist(dstPath)) {</div>\n<div>                        cc.fileUtils.removeFile(dstPath);</div>\n<div>                    }</div>\n<div>                    cc.fileUtils.renameFile(srcPath, dstPath);</div>\n<div>                }</div>\n<div>            });</div>\n<div>            cc.fileUtils.removeDirectory(tempPath);</div>\n<div>        }</div>\n<div>    } else {</div>\n<div>        let path = writablepath + \"remote-hot/hall\"; //热更存放路径添加</div>\n<div>        jsb.fileUtils.addSearchPath(path, true);</div>\n<div>    }</div>\n</div>\n<p><code></code></p>",
-            "author": {
-                "name": "黄伟伟"
-            },
-            "tags": [
-            ],
-            "date_published": "2022-08-18T16:27:38+08:00",
-            "date_modified": "2023-08-01T10:07:36+08:00"
         }
     ]
 }
